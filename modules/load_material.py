@@ -241,13 +241,13 @@ def GenerateMaterial(directory):
 
 class LOC_MAT_LOAD_load_material(bpy.types.Operator):
     bl_idname = 'loc_mat_load.load_material'
-    bl_label = 'Load'
+    bl_label = 'Load Material'
 
     def execute(self, context):
         mat_directory = bpy.context.scene.conf_path
 
         # If the path is empty return
-        if mat_directory.strip() == '' or mat_directory == '[Directory not containing supported files]':
+        if mat_directory.strip() == '':
             return {'FINISHED'}
 
         res = GenerateMaterial(mat_directory)

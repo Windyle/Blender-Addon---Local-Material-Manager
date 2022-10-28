@@ -21,8 +21,13 @@ MODULES = [
     'assign_material',
     'load_material',
     'user_preferences',
-    'main_ui',
-    '_globals'
+    'load_panel',
+    'manage_panel',
+    '_globals',
+    'delete_material',
+    'link_manager',
+    'mark_asset',
+    'clear_preview'
 ]
 
 modulesFullNames = {}

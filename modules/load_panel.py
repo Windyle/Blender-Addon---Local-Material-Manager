@@ -2,10 +2,21 @@ import bpy
 import os
 
 
+class invalid_dir_popup(bpy.types.Operator):
+    bl_idname = 'dialog.invalid_dir'
+    bl_label = 'The selected directory does not contain any supported file'
+
+    def execute(self, context):
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+
 def UpdateTexturePreview(self, context):
     dir = context.scene.conf_path.replace('\\', '/')[:-1]
 
-    if dir == '/' or dir == '' or dir == '[Directory not containing supported files':
+    if dir == '/' or dir == '':
         return
 
     # Get Current Folder Files
@@ -43,7 +54,8 @@ def UpdateTexturePreview(self, context):
                         preview_image = file
 
     if preview_image == '':
-        context.scene.conf_path = '[Directory not containing supported files]'
+        bpy.ops.dialog.invalid_dir('INVOKE_DEFAULT')
+        context.scene.conf_path = ''
         return
 
     imgPath = dir + '/' + preview_image
@@ -60,8 +72,8 @@ def UpdateTexturePreview(self, context):
 
 class LOC_MAT_LOAD_Panel(bpy.types.Panel):
 
-    bl_idname = 'LOC_MAT_LOAD_PT_main_panel'
-    bl_label = 'Local Material Manager'
+    bl_idname = 'LOC_MAT_LOAD_PT_load_panel'
+    bl_label = 'Import Tool'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = 'Material Manager'
@@ -69,26 +81,13 @@ class LOC_MAT_LOAD_Panel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        load_box = layout.box()
-        load_box.label(text='Load New Material')
-        load_box.prop(context.scene, 'conf_path')
+        layout.prop(context.scene, 'conf_path')
 
-        load_box.template_ID_preview(context.scene, 'preview_texture')
-        load_box.operator('loc_mat_load.load_material', icon='ADD')
+        layout.template_ID_preview(context.scene, 'preview_texture')
 
-        preview_box = layout.box()
-        preview_box.label(text='Material Preview')
-
-        preview_box.prop(context.scene, 'preview_material', text='')
-        preview_box.template_ID_preview(context.scene, 'preview_material')
-
-        # preview_row = preview_box.row()
-        preview_box.operator(
-            'loc_mat_load.assign_material', icon='SHADING_RENDERED')
-        preview_box.operator(
-            'loc_mat_load.assign_material_to_faces', icon='MATERIAL')
-        preview_box.operator(
-            'loc_mat_load.replace_slot_0', icon='SELECT_SET')
+        row = layout.row()
+        row.operator('loc_mat_load.load_material', icon='ADD')
+        row.operator('loc_mat_load.clear_preview', icon='BRUSH_DATA')
 
 
 def register():
@@ -101,7 +100,9 @@ def register():
     )
 
     bpy.utils.register_class(LOC_MAT_LOAD_Panel)
+    bpy.utils.register_class(invalid_dir_popup)
 
 
 def unregister():
     bpy.utils.unregister_class(LOC_MAT_LOAD_Panel)
+    bpy.utils.unregister_class(invalid_dir_popup)
