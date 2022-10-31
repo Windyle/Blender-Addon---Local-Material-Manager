@@ -3,7 +3,7 @@ import bpy
 
 class LOC_MAT_LOAD_mark_asset(bpy.types.Operator):
     bl_idname = 'loc_mat_load.mark_asset'
-    bl_label = 'Mark Asset'
+    bl_label = 'Mark as Asset'
     bl_options = {'REGISTER', 'INTERNAL'}
 
     def execute(self, context):

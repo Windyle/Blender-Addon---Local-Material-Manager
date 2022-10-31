@@ -34,6 +34,14 @@ class LOC_MAT_MANAGE_Panel(bpy.types.Panel):
 
         row = layout.row()
         row.operator(
+            'loc_mat_load.displace_modifier', icon='MOD_DISPLACE')
+        row.operator(
+            'loc_mat_load.remove_displace_modifier', icon='REMOVE')
+
+        layout.separator()
+
+        row = layout.row()
+        row.operator(
             'loc_mat_load.mark_asset', icon='ASSET_MANAGER')
         row.operator(
             'loc_mat_load.unmark_asset', icon='X')

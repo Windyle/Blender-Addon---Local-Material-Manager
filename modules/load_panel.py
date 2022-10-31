@@ -56,6 +56,10 @@ def UpdateTexturePreview(self, context):
     if preview_image == '':
         bpy.ops.dialog.invalid_dir('INVOKE_DEFAULT')
         context.scene.conf_path = ''
+
+        if 'PRELOAD PREVIEW' in bpy.data.images:
+            bpy.data.images.remove(bpy.data.images['PRELOAD PREVIEW'])
+
         return
 
     imgPath = dir + '/' + preview_image

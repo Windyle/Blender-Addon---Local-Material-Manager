@@ -4,8 +4,8 @@ import importlib
 
 bl_info = {
     # required
-    'name': 'Local Material Loader',
-    'blender': (3, 1, 2),
+    'name': 'Local Material Manager',
+    'blender': (3, 3, 1),
     'category': '3D View',
     # optional
     'version': (1, 0, 0),
@@ -27,7 +27,8 @@ MODULES = [
     'delete_material',
     'link_manager',
     'mark_asset',
-    'clear_preview'
+    'clear_preview',
+    'displace_modifier'
 ]
 
 modulesFullNames = {}

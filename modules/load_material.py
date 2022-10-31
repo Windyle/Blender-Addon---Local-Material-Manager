@@ -44,10 +44,10 @@ def GetTexture(currentDir, material, files, type):
 
     imgPath = currentDir + '/' + imgFile
 
-    img = bpy.data.images.load(filepath=imgPath)
+    img = bpy.data.images.load(filepath=imgPath, check_existing=True)
     tex_node = material.node_tree.nodes.new('ShaderNodeTexImage')
     tex_node.image = img
-    tex_node.extension = 'EXTEND'
+    tex_node.extension = 'REPEAT'
     tex_node.image.colorspace_settings.name = type_obj['colorspace']
 
     return tex_node
@@ -173,7 +173,7 @@ def GenerateMaterial(directory):
         material.node_tree.links.new(
             texDisplacement_node.outputs[0], bump_node.inputs[2])
         material.node_tree.links.new(
-            normal_map_node.outputs[0], bump_node.inputs[5])
+            normal_map_node.outputs[0], bump_node.inputs[3])
         material.node_tree.links.new(
             bump_node.outputs[0], Principled_BSDF.inputs[22])
         material.node_tree.links.new(

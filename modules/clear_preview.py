@@ -7,7 +7,11 @@ class LOC_MAT_LOAD_clear_preview(bpy.types.Operator):
     bl_options = {'REGISTER', 'INTERNAL'}
 
     def execute(self, context):
-        self.report({'INFO'}, 'Clear Preview')
+        context.scene.conf_path = ''
+
+        if 'PRELOAD PREVIEW' in bpy.data.images:
+            bpy.data.images.remove(bpy.data.images['PRELOAD PREVIEW'])
+
         return {'FINISHED'}
 
 

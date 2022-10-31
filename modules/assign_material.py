@@ -67,7 +67,7 @@ class LOC_MAT_LOAD_assign_material_to_faces(bpy.types.Operator):
 
 class LOC_MAT_LOAD_replace_slot_0(bpy.types.Operator):
     bl_idname = 'loc_mat_load.replace_slot_0'
-    bl_label = 'Set first material slot for selected objects'
+    bl_label = 'Set First Material Slot for Selected Objects'
 
     def execute(self, context):
         if context.scene.preview_material != None:
